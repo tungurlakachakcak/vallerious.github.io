@@ -5,16 +5,26 @@ import Board from './cmpts/Board';
 const rows = 30; const cols = 20;
 
 class Snake {
-	constructor(point) {
-		this.point = point;
+	constructor(points) {
+		this.points = points;
 	}
 
-	incrementX(x) {
-		this.point.x += x;
+	moveSnake({x, y}) {
+		// We can delete the last dot and add the new one at the start.
+
+		this.points.splice(-1, 1);
+
+		this.points.unshift(new Point(this.points[0].x + x, this.points[0].y + y))
 	}
 
-	incrementY(y) {
-		this.point.y += y;
+	isMoveAllowed(nextDirection, rows, cols) {
+		const snakeHead = this.points[0];
+
+		if (snakeHead.x + nextDirection.x >= cols || snakeHead.x + nextDirection.x < 0 ||
+			snakeHead.y + nextDirection.y >= rows || snakeHead.y + nextDirection.y < 0) {
+				return false;
+			}
+		return true;
 	}
 }
 
@@ -38,12 +48,12 @@ export default class App extends Component {
 
 	componentWillMount = () => {
 		// Initialize the starting point of the snake
-		this.state.snake = new Snake(new Point(10, 10));
+		this.state.snake = new Snake([new Point(12, 10), new Point(11, 10), new Point(10, 10)]);
 	}
 
 	componentDidMount = () => {
 		this.initializeMovement();
-		this.attachKeyboardListeners();
+		//this.attachKeyboardListeners();
 	}
 
 	componentWillUnmount = () => {
@@ -77,17 +87,17 @@ export default class App extends Component {
 		setInterval(() => {
 			const {direction, snake} = this.state;
 			const currentDirection = movement[direction];
-			if (snake.point.x + currentDirection.x >= cols || snake.point.x + currentDirection.x < 0 ||
-				snake.point.y + currentDirection.y >= rows || snake.point.y + currentDirection.y < 0) {
+
+			// Limit the movement of the snake to the walls of the board. Later we will kill the snake if it hits a wall.
+			if (!snake.isMoveAllowed(currentDirection, rows, cols)) {
 					return;
 				}
-			snake.incrementX(currentDirection.x);
-			snake.incrementY(currentDirection.y);
-			
-			// Limit the movement of the snake to the walls of the board. Later we will kill the snake if it hits a wall.
 
+				// change the coordinates of the snake so it moves
+			snake.moveSnake(currentDirection);
+			
 			this.setState({ snake });
-		}, 200);
+		}, 2000);
 	}
 
 	render() {

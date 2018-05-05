@@ -15,15 +15,15 @@ export default class Board extends Component {
 		this.state = {};
 	}
 
-	renderRows(r, c, x, y) {
+	renderRows(r, c, points) {
 		const rows = [];
-
 
 		for (let rowIdx = 0; rowIdx < r; rowIdx++) {
 			const row = [];
 			
 			for (let colIdx = 0; colIdx < c; colIdx++) {
-				row.push(<td style={x === colIdx && y === rowIdx ? styles.snake : {}} />);
+				const pointExistsInSnake = points.some(p => p.x === colIdx && p.y === rowIdx)
+				row.push(<td style={pointExistsInSnake ? styles.snake : {}} />);
 			}
 
 			rows.push(<tr>{row}</tr>);
@@ -34,11 +34,11 @@ export default class Board extends Component {
 
 	render() {
 		const { rows, cols, snake } = this.props;
-		const { x, y } = snake.point;
+
 		return (
 			<table style={styles.table}>
 				<tbody>
-					{this.renderRows(rows, cols, x, y)}
+					{this.renderRows(rows, cols, snake.points)}
 				</tbody>
 			</table>
 		);
