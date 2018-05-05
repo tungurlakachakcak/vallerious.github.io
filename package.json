@@ -14,7 +14,7 @@
     "extends": "eslint-config-synacor"
   },
   "eslintIgnore": [
-    "build/*"
+    "/*"
   ],
   "devDependencies": {
     "eslint": "^4.5.0",
