@@ -35,6 +35,10 @@ class Point {
 	}
 }
 
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default class App extends Component {
 	constructor(props) {
 		super(props);
@@ -43,13 +47,15 @@ export default class App extends Component {
 			score: 0,
 			snake: null,
 			direction: 1, // 1: up, 2: right, 3: down, 4: left,
-			lives: 3
+			lives: 3,
+			apple: null
 		};
 	}
 
 	componentWillMount = () => {
 		// Initialize the starting point of the snake
 		this.resetSnake();
+		this.setState({apple: this.generateApple(this.state.snake)})
 	}
 
 	componentDidMount = () => {
@@ -64,6 +70,33 @@ export default class App extends Component {
 	resetSnake() {
 		this.setState({snake: new Snake([new Point(12, 10), new Point(11, 10), new Point(10, 10)])});
 	}
+
+	generateApple(snake) {
+		const { points } = snake;
+		
+		let randomX, randomY;
+
+		while (true) {
+			randomX = getRandomInt(0, cols - 1);
+			randomY = getRandomInt(0, rows - 1);
+			let doesExists = false;
+
+			for (let i = 0; i < points.length; i++) {
+				const currentPoint = points[i];
+
+				if (currentPoint.x === randomX && currentPoint.y === randomY) {
+					doesExists = true;
+					break;
+				}
+			}
+
+			if (!doesExists) {
+				break;
+			}
+		}
+
+		return new Point(randomX, randomY);
+	} 
 	
 	onKeyPress = ({keyCode}) => {
 		let dir = this.state.direction;
@@ -125,14 +158,14 @@ export default class App extends Component {
 	}
 
 	render() {
-		const { snake } = this.state;
+		const { snake, apple } = this.state;
 
 		return (
 			<div>
 				<h1>Snake</h1>
 				<div>Score: {this.state.score}</div>
 				<div>Lives: {this.state.lives}</div>
-				<Board rows={rows} cols={cols} snake={snake} />
+				<Board rows={rows} cols={cols} snake={snake} apple={apple} />
 			</div>
 		);
 	}
