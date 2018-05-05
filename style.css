@@ -6,3 +6,13 @@ html, body {
 h1 {
 	text-align: center;
 }
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	width: 10px;
+	height: 10px;
+	border: 1px solid black;
+}
