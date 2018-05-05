@@ -38,6 +38,22 @@ class Snake {
 			}
 		return true;
 	}
+
+	checkIfCrashingInSelf(nextDirection) {
+		let isCrashing = false;
+		const snakeHead = this.points[0];
+
+		for (let i = 0; i < this.points.length; i++) {
+			const currPoint = this.points[i];
+			if (snakeHead.x + nextDirection.x === currPoint.x &&
+					snakeHead.y + nextDirection.y === currPoint.y) {
+					isCrashing = true;
+					break;
+				}
+		}
+
+		return isCrashing;
+	}
 }
 
 class Point {
@@ -151,7 +167,7 @@ export default class App extends Component {
 			const currentDirection = movement[direction];
 
 			// Limit the movement of the snake to the walls of the board. Later we will kill the snake if it hits a wall.
-			if (!snake.isMoveInBorders(currentDirection, rows, cols)) {
+			if (!snake.isMoveInBorders(currentDirection, rows, cols) || snake.checkIfCrashingInSelf(currentDirection)) {
 					this.resetSnake();
 					this.setState({lives: this.state.lives - 1}, () => {
 						if (this.state.lives <= 0) {
