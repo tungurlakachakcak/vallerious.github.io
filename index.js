@@ -17,7 +17,7 @@ class Snake {
 		this.points.unshift(new Point(this.points[0].x + x, this.points[0].y + y))
 	}
 
-	isMoveAllowed(nextDirection, rows, cols) {
+	isMoveInBorders(nextDirection, rows, cols) {
 		const snakeHead = this.points[0];
 
 		if (snakeHead.x + nextDirection.x >= cols || snakeHead.x + nextDirection.x < 0 ||
@@ -42,13 +42,14 @@ export default class App extends Component {
 		this.state = {
 			score: 0,
 			snake: null,
-			direction: 1 // 1: up, 2: right, 3: down, 4: left
+			direction: 1, // 1: up, 2: right, 3: down, 4: left,
+			lives: 3
 		};
 	}
 
 	componentWillMount = () => {
 		// Initialize the starting point of the snake
-		this.state.snake = new Snake([new Point(12, 10), new Point(11, 10), new Point(10, 10)]);
+		this.resetSnake();
 	}
 
 	componentDidMount = () => {
@@ -58,6 +59,10 @@ export default class App extends Component {
 
 	componentWillUnmount = () => {
 		window.document.removeEventListener('keydown', this.onKeyPress);
+	}
+
+	resetSnake() {
+		this.setState({snake: new Snake([new Point(12, 10), new Point(11, 10), new Point(10, 10)])});
 	}
 	
 	onKeyPress = ({keyCode}) => {
@@ -96,7 +101,19 @@ export default class App extends Component {
 			const currentDirection = movement[direction];
 
 			// Limit the movement of the snake to the walls of the board. Later we will kill the snake if it hits a wall.
-			if (!snake.isMoveAllowed(currentDirection, rows, cols)) {
+			if (!snake.isMoveInBorders(currentDirection, rows, cols)) {
+					this.resetSnake();
+					this.setState({lives: this.state.lives - 1}, () => {
+						if (this.state.lives <= 0) {
+							const answer = window.prompt('Game over! Do you want to play again?');
+
+							if (answer !== null) {
+								this.setState({lives: 3});
+							} else {
+								// redirect to my cv page
+							}
+						}
+					});
 					return;
 				}
 
@@ -114,6 +131,7 @@ export default class App extends Component {
 			<div>
 				<h1>Snake</h1>
 				<div>Score: {this.state.score}</div>
+				<div>Lives: {this.state.lives}</div>
 				<Board rows={rows} cols={cols} snake={snake} />
 			</div>
 		);
