@@ -23,6 +23,12 @@ class Snake {
 		return false;
 	}
 
+	grow() {
+		const lastEl = Object.assign({}, this.points[this.points.length - 1]);
+
+		this.points.push(lastEl);
+	}
+
 	isMoveInBorders(nextDirection, rows, cols) {
 		const snakeHead = this.points[0];
 
@@ -165,6 +171,7 @@ export default class App extends Component {
 			const hasCauthApple = snake.moveSnake(currentDirection, this.state.apple);
 
 			if (hasCauthApple) {
+				snake.grow();
 				this.setState({score: this.state.score + 100, apple: this.generateApple(this.state.snake)});
 			}
 			
