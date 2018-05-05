@@ -9,12 +9,18 @@ class Snake {
 		this.points = points;
 	}
 
-	moveSnake({x, y}) {
+	moveSnake({x, y}, apple) {
 		// We can delete the last dot and add the new one at the start.
-
 		this.points.splice(-1, 1);
-
 		this.points.unshift(new Point(this.points[0].x + x, this.points[0].y + y))
+
+		const snakeHead = this.points[0];
+
+		if (snakeHead.x === apple.x && snakeHead.y === apple.y) {
+			return true;
+		}
+
+		return false;
 	}
 
 	isMoveInBorders(nextDirection, rows, cols) {
@@ -99,6 +105,11 @@ export default class App extends Component {
 	} 
 	
 	onKeyPress = ({keyCode}) => {
+		if (keyCode === 32 && this.state.score >= 1000) {
+			this.setState({score: this.state.score - 1000, lives: this.state.lives + 1});
+			return;
+		}
+
 		let dir = this.state.direction;
 		const keyMap = {
 			37: 4,
@@ -151,7 +162,11 @@ export default class App extends Component {
 				}
 
 				// change the coordinates of the snake so it moves
-			snake.moveSnake(currentDirection);
+			const hasCauthApple = snake.moveSnake(currentDirection, this.state.apple);
+
+			if (hasCauthApple) {
+				this.setState({score: this.state.score + 100, apple: this.generateApple(this.state.snake)});
+			}
 			
 			this.setState({ snake });
 		}, 200);
@@ -165,6 +180,9 @@ export default class App extends Component {
 				<h1>Snake</h1>
 				<div>Score: {this.state.score}</div>
 				<div>Lives: {this.state.lives}</div>
+				<div>
+					<strong>Press space to exchange 1000 points for 1 life.</strong>
+				</div>
 				<Board rows={rows} cols={cols} snake={snake} apple={apple} />
 			</div>
 		);
