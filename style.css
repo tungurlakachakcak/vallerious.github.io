@@ -16,3 +16,16 @@ td {
 	height: 10px;
 	border: 1px solid black;
 }
+
+.wrapper-game {
+	text-align: center;
+}
+
+.vertical-spacer-20 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.label {
+	font-size: 1.2em;
+}

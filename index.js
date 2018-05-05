@@ -9,7 +9,7 @@ class Snake {
 		this.points = points;
 	}
 
-	moveSnake({x, y}, apple) {
+	moveSnake({ x, y }, apple) {
 		// We can delete the last dot and add the new one at the start.
 		this.points.splice(-1, 1);
 		this.points.unshift(new Point(this.points[0].x + x, this.points[0].y + y))
@@ -34,8 +34,8 @@ class Snake {
 
 		if (snakeHead.x + nextDirection.x >= cols || snakeHead.x + nextDirection.x < 0 ||
 			snakeHead.y + nextDirection.y >= rows || snakeHead.y + nextDirection.y < 0) {
-				return false;
-			}
+			return false;
+		}
 		return true;
 	}
 
@@ -46,10 +46,10 @@ class Snake {
 		for (let i = 0; i < this.points.length; i++) {
 			const currPoint = this.points[i];
 			if (snakeHead.x + nextDirection.x === currPoint.x &&
-					snakeHead.y + nextDirection.y === currPoint.y) {
-					isCrashing = true;
-					break;
-				}
+				snakeHead.y + nextDirection.y === currPoint.y) {
+				isCrashing = true;
+				break;
+			}
 		}
 
 		return isCrashing;
@@ -62,6 +62,8 @@ class Point {
 		this.y = y;
 	}
 }
+
+const defaultSnakeElements = [new Point(12, 10), new Point(11, 10), new Point(10, 10)];
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -82,8 +84,8 @@ export default class App extends Component {
 
 	componentWillMount = () => {
 		// Initialize the starting point of the snake
-		this.resetSnake();
-		this.setState({apple: this.generateApple(this.state.snake)})
+		this.setState({ snake: new Snake(Object.assign([], defaultSnakeElements)) });
+		this.setState({ apple: this.generateApple(this.state.snake) })
 	}
 
 	componentDidMount = () => {
@@ -95,13 +97,9 @@ export default class App extends Component {
 		window.document.removeEventListener('keydown', this.onKeyPress);
 	}
 
-	resetSnake() {
-		this.setState({snake: new Snake([new Point(12, 10), new Point(11, 10), new Point(10, 10)])});
-	}
-
 	generateApple(snake) {
 		const { points } = snake;
-		
+
 		let randomX, randomY;
 
 		while (true) {
@@ -124,11 +122,11 @@ export default class App extends Component {
 		}
 
 		return new Point(randomX, randomY);
-	} 
-	
-	onKeyPress = ({keyCode}) => {
+	}
+
+	onKeyPress = ({ keyCode }) => {
 		if (keyCode === 32 && this.state.score >= 1000) {
-			this.setState({score: this.state.score - 1000, lives: this.state.lives + 1});
+			this.setState({ score: this.state.score - 1000, lives: this.state.lives + 1 });
 			return;
 		}
 
@@ -141,13 +139,13 @@ export default class App extends Component {
 		};
 
 		if ((keyMap[keyCode] === 1 && dir === 3) ||
-				(keyMap[keyCode] === 3 && dir === 1) ||
-				(keyMap[keyCode] === 2 && dir === 4) ||
-				(keyMap[keyCode] === 4 && dir === 2)) {
-					return;
-				}
-		
-		this.setState({direction: keyMap[keyCode] || dir})
+			(keyMap[keyCode] === 3 && dir === 1) ||
+			(keyMap[keyCode] === 2 && dir === 4) ||
+			(keyMap[keyCode] === 4 && dir === 2)) {
+			return;
+		}
+
+		this.setState({ direction: keyMap[keyCode] || dir })
 	}
 
 	attachKeyboardListeners() {
@@ -156,57 +154,62 @@ export default class App extends Component {
 
 	initializeMovement = () => {
 		const movement = {
-			1: {x: 0, y: 1},
-			2: {x: 1, y: 0},
-			3: {x: 0, y: -1},
-			4: {x: -1, y: 0}
+			1: { x: 0, y: 1 },
+			2: { x: 1, y: 0 },
+			3: { x: 0, y: -1 },
+			4: { x: -1, y: 0 }
 		};
 
 		setInterval(() => {
-			const {direction, snake} = this.state;
+			const { direction, snake } = this.state;
 			const currentDirection = movement[direction];
 
 			// Limit the movement of the snake to the walls of the board. Later we will kill the snake if it hits a wall.
 			if (!snake.isMoveInBorders(currentDirection, rows, cols) || snake.checkIfCrashingInSelf(currentDirection)) {
-					this.resetSnake();
-					this.setState({lives: this.state.lives - 1}, () => {
-						if (this.state.lives <= 0) {
-							const answer = window.prompt('Game over! Do you want to play again?');
+				const currentLifePoints = this.state.lives - 1;
 
-							if (answer !== null) {
-								this.setState({lives: 3});
-							} else {
-								// redirect to my cv page
-							}
-						}
-					});
-					return;
+				if (currentLifePoints <= 0) {
+					const answer = window.prompt('Game over! Do you want to play again?');
+
+					if (answer !== null) {
+						this.setState({ lives: 3, score: 0, snake: new Snake(Object.assign([], defaultSnakeElements)) });
+					} else {
+						// redirect to my cv page
+					}
+				} else {
+					this.setState({ lives: currentLifePoints, snake: new Snake(Object.assign([], defaultSnakeElements)) });
 				}
+				return;
+			}
 
-				// change the coordinates of the snake so it moves
+			// change the coordinates of the snake so it moves
 			const hasCauthApple = snake.moveSnake(currentDirection, this.state.apple);
 
 			if (hasCauthApple) {
 				snake.grow();
-				this.setState({score: this.state.score + 100, apple: this.generateApple(this.state.snake)});
+				this.setState({ score: this.state.score + 100, apple: this.generateApple(this.state.snake) });
 			}
-			
+
 			this.setState({ snake });
-		}, 200);
+		}, 150);
 	}
 
 	render() {
 		const { snake, apple } = this.state;
 
 		return (
-			<div>
+			<div className="wrapper-game">
 				<h1>Snake</h1>
-				<div>Score: {this.state.score}</div>
-				<div>Lives: {this.state.lives}</div>
 				<div>
-					<strong>Press space to exchange 1000 points for 1 life.</strong>
+					<div><strong className="label">Score:</strong> {this.state.score}</div>
+					<div><strong className="label">Lives:</strong> {this.state.lives}</div>
 				</div>
+				<div className="vertical-spacer-20"></div>
 				<Board rows={rows} cols={cols} snake={snake} apple={apple} />
+				<div className="vertical-spacer-20"></div>
+				<div>
+					<em>*Press space to exchange 1000 points for 1 life.</em>
+				</div>
 			</div>
 		);
 	}
