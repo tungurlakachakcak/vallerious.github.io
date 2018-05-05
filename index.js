@@ -172,12 +172,12 @@ export default class App extends Component {
 					const answer = window.prompt('Game over! Do you want to play again?');
 
 					if (answer !== null) {
-						this.setState({ lives: 3, score: 0, snake: new Snake(Object.assign([], defaultSnakeElements)) });
+						this.setState({ lives: 3, score: 0, snake: new Snake(Object.assign([], defaultSnakeElements)), direction: 1 });
 					} else {
 						// redirect to my cv page
 					}
 				} else {
-					this.setState({ lives: currentLifePoints, snake: new Snake(Object.assign([], defaultSnakeElements)) });
+					this.setState({ lives: currentLifePoints, snake: new Snake(Object.assign([], defaultSnakeElements)), direction: 1 });
 				}
 				return;
 			}
