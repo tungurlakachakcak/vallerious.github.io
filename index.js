@@ -53,14 +53,14 @@ export default class App extends Component {
 
 	componentDidMount = () => {
 		this.initializeMovement();
-		//this.attachKeyboardListeners();
+		this.attachKeyboardListeners();
 	}
 
 	componentWillUnmount = () => {
 		window.document.removeEventListener('keydown', this.onKeyPress);
 	}
 	
-	onKeyPress = (e) => {
+	onKeyPress = ({keyCode}) => {
 		let dir = this.state.direction;
 		const keyMap = {
 			37: 4,
@@ -68,8 +68,15 @@ export default class App extends Component {
 			39: 2,
 			40: 1
 		};
+
+		if ((keyMap[keyCode] === 1 && dir === 3) ||
+				(keyMap[keyCode] === 3 && dir === 1) ||
+				(keyMap[keyCode] === 2 && dir === 4) ||
+				(keyMap[keyCode] === 4 && dir === 2)) {
+					return;
+				}
 		
-		this.setState({direction: keyMap[e.keyCode] || dir})
+		this.setState({direction: keyMap[keyCode] || dir})
 	}
 
 	attachKeyboardListeners() {
@@ -97,7 +104,7 @@ export default class App extends Component {
 			snake.moveSnake(currentDirection);
 			
 			this.setState({ snake });
-		}, 2000);
+		}, 200);
 	}
 
 	render() {
