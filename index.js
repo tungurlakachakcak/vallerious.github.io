@@ -1,6 +1,17 @@
 import './style';
 import { Component } from 'preact';
 import Board from './cmpts/Board';
+import firebase from 'firebase';
+
+var config = {
+	apiKey: "AIzaSyA6K9x7ji3pTmYR6sReIzSm8gkr_3lbZUs",
+	authDomain: "snake-cv.firebaseapp.com",
+	databaseURL: "https://snake-cv.firebaseio.com",
+	projectId: "snake-cv",
+	storageBucket: "",
+	messagingSenderId: "367448488328"
+};
+firebase.initializeApp(config);
 
 const rows = 30; const cols = 20;
 
@@ -81,7 +92,8 @@ export default class App extends Component {
 			lives: 3,
 			apple: null,
 			speed: 150,
-			status: 'pause' // start or pause
+			status: 'pause', // start or pause,
+			highScores: []
 		};
 	}
 
@@ -94,10 +106,23 @@ export default class App extends Component {
 	componentDidMount = () => {
 		// this.initializeMovement();
 		this.attachKeyboardListeners();
+		this.getHighScores();
 	}
 
 	componentWillUnmount = () => {
 		window.document.removeEventListener('keydown', this.onKeyPress);
+	}
+
+	getHighScores = () => {
+		firebase.database().ref('/').limitToLast(10).once('value')
+			.then(snapshop => {
+				const hiscores = snapshop.val();
+				const bestScoresArray = Object.keys(hiscores).map(k => {
+					return {name: k, score: hiscores[k]};
+				});
+				bestScoresArray.sort((a, b) => b.score - a.score);
+				this.setState({highScores: bestScoresArray});
+			});
 	}
 
 	generateApple(snake) {
@@ -203,8 +228,18 @@ export default class App extends Component {
 		}, this.state.speed);
 	}
 
+	renderHighscores = (highScores) => {
+		let lis = [];
+
+		for (let i = 0; i < highScores.length; i++) {
+			lis.push(<li key={i}>{highScores[i].name} - {highScores[i].score}</li>)
+		}
+
+		return lis;
+	}
+
 	render() {
-		const { snake, apple, status } = this.state;
+		const { snake, apple, status, highScores } = this.state;
 
 		return (
 			<div className="wrapper-game">
@@ -222,6 +257,11 @@ export default class App extends Component {
 					<div className="col-1">
 						<div><em>*Press enter to start/pause game.</em></div>
 						<div><em>*Press space to exchange 1000 points for 1 life.</em></div>
+						<div>
+							<ul>
+								{this.renderHighscores(highScores)}
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
