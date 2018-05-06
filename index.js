@@ -64,6 +64,7 @@ class Point {
 }
 
 const defaultSnakeElements = [new Point(12, 10), new Point(11, 10), new Point(10, 10)];
+let int;
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -78,7 +79,9 @@ export default class App extends Component {
 			snake: null,
 			direction: 1, // 1: up, 2: right, 3: down, 4: left,
 			lives: 3,
-			apple: null
+			apple: null,
+			speed: 150,
+			status: 'pause' // start or pause
 		};
 	}
 
@@ -89,7 +92,7 @@ export default class App extends Component {
 	}
 
 	componentDidMount = () => {
-		this.initializeMovement();
+		// this.initializeMovement();
 		this.attachKeyboardListeners();
 	}
 
@@ -130,6 +133,17 @@ export default class App extends Component {
 			return;
 		}
 
+		if (keyCode === 13) {
+			if (this.state.status === 'pause') {
+				this.initializeMovement();
+			} else {
+				clearInterval(int);
+			}
+	
+			this.setState({status: this.state.status === 'start' ? 'pause' : 'start'});
+			return;
+		}
+
 		let dir = this.state.direction;
 		const keyMap = {
 			37: 4,
@@ -160,7 +174,7 @@ export default class App extends Component {
 			4: { x: -1, y: 0 }
 		};
 
-		setInterval(() => {
+		int = setInterval(() => {
 			const { direction, snake } = this.state;
 			const currentDirection = movement[direction];
 
@@ -169,13 +183,8 @@ export default class App extends Component {
 				const currentLifePoints = this.state.lives - 1;
 
 				if (currentLifePoints <= 0) {
-					const answer = window.prompt('Game over! Do you want to play again?');
-
-					if (answer !== null) {
-						this.setState({ lives: 3, score: 0, snake: new Snake(Object.assign([], defaultSnakeElements)), direction: 1 });
-					} else {
-						// redirect to my cv page
-					}
+					this.setState({status: 'pause', lives: 3, score: 0, snake: new Snake(Object.assign([], defaultSnakeElements))});
+					clearInterval(int);
 				} else {
 					this.setState({ lives: currentLifePoints, snake: new Snake(Object.assign([], defaultSnakeElements)), direction: 1 });
 				}
@@ -191,24 +200,29 @@ export default class App extends Component {
 			}
 
 			this.setState({ snake });
-		}, 150);
+		}, this.state.speed);
 	}
 
 	render() {
-		const { snake, apple } = this.state;
+		const { snake, apple, status } = this.state;
 
 		return (
 			<div className="wrapper-game">
 				<h1>Snake</h1>
-				<div>
-					<div><strong className="label">Score:</strong> {this.state.score}</div>
-					<div><strong className="label">Lives:</strong> {this.state.lives}</div>
-				</div>
-				<div className="vertical-spacer-20"></div>
-				<Board rows={rows} cols={cols} snake={snake} apple={apple} />
-				<div className="vertical-spacer-20"></div>
-				<div>
-					<em>*Press space to exchange 1000 points for 1 life.</em>
+				<div className="row">
+					<div className="col-1 p-10 text-right">
+						<div><strong className="label">Score:</strong> {this.state.score}</div>
+						<div><strong className="label">Lives:</strong> {this.state.lives}</div>
+					</div>
+					<div className="col-1">
+						<div>
+							<Board rows={rows} cols={cols} snake={snake} apple={apple} />
+						</div>
+					</div>
+					<div className="col-1">
+						<div><em>*Press enter to start/pause game.</em></div>
+						<div><em>*Press space to exchange 1000 points for 1 life.</em></div>
+					</div>
 				</div>
 			</div>
 		);

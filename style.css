@@ -17,10 +17,6 @@ td {
 	border: 1px solid black;
 }
 
-.wrapper-game {
-	text-align: center;
-}
-
 .vertical-spacer-20 {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -28,4 +24,20 @@ td {
 
 .label {
 	font-size: 1.2em;
+}
+
+.row {
+	display: flex;
+}
+
+.col-1 {
+	flex: 1;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.p-10 {
+	padding: 10px;
 }

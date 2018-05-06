@@ -12,5 +12,4 @@
 ### Future features (wow, that's a mouthful...)
 
 * Keeping highscores in a db
-* Adding a slider to manipulate the speed of the snake
 * The actual resume of my work and stuff about me...

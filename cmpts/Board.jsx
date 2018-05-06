@@ -2,7 +2,8 @@ import { Component } from 'preact';
 
 const styles = {
 	table: {
-		margin: '0 auto'
+		margin: '0 auto',
+		minWidth: 261
 	},
 	snake: {
 		background: 'green'
