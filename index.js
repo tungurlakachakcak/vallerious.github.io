@@ -30,7 +30,7 @@ export default class App extends Component {
 			gameOver: false,
 			name: '',
 			lastHighScore: 0,
-			currentPage: 'cv'
+			currentPage: 'snake'
 		};
 	}
 
@@ -189,7 +189,10 @@ export default class App extends Component {
 		const { snake, apple, status, highScores, gameOver, currentPage } = this.state;
 
 		return (
-			<div className="wrapper-game">
+			<div>
+				<header>
+					<a href="#" onClick={this.togglePage}>{currentPage === 'snake' ? 'About Me' : 'Snake Game'}</a>
+				</header>
 				{currentPage === 'snake' ?
 				<div>
 					<h1 className="text-center mb-5">Snake</h1>
@@ -211,9 +214,6 @@ export default class App extends Component {
 						</div>
 					</div>
 				</div> : <Summary />}
-				{/* <footer>
-					<a href="#" onClick={this.togglePage}>About Me</a>
-				</footer> */}
 			</div>
 		);
 	}

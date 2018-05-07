@@ -5,6 +5,7 @@ html, body {
 	font-weight: 400;
 	padding: 0;
 	margin: 0;
+	position: relative;
 }
 
 table {
@@ -24,4 +25,10 @@ td {
 
 .my-pic {
 	width: 190px;
+}
+
+header {
+	position: absolute;
+	top: 20px;
+	left: 20px;
 }
