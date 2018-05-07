@@ -93,7 +93,10 @@ export default class App extends Component {
 			apple: null,
 			speed: 150,
 			status: 'pause', // start or pause,
-			highScores: []
+			highScores: [],
+			gameOver: false,
+			name: '',
+			lastHighScore: 0
 		};
 	}
 
@@ -120,7 +123,7 @@ export default class App extends Component {
 				const bestScoresArray = Object.keys(hiscores).map(k => {
 					return {name: k, score: hiscores[k]};
 				});
-				bestScoresArray.sort((a, b) => b.score - a.score);
+				bestScoresArray.sort((a, v) => v.score - a.score);
 				this.setState({highScores: bestScoresArray});
 			});
 	}
@@ -160,6 +163,7 @@ export default class App extends Component {
 
 		if (keyCode === 13) {
 			if (this.state.status === 'pause') {
+				this.setState({gameOver: false});
 				this.initializeMovement();
 			} else {
 				clearInterval(int);
@@ -208,7 +212,7 @@ export default class App extends Component {
 				const currentLifePoints = this.state.lives - 1;
 
 				if (currentLifePoints <= 0) {
-					this.setState({status: 'pause', lives: 3, score: 0, snake: new Snake(Object.assign([], defaultSnakeElements))});
+					this.setState({lastHighScore: this.state.score, status: 'pause', lives: 3, gameOver: true, score: 0, snake: new Snake(Object.assign([], defaultSnakeElements))});
 					clearInterval(int);
 				} else {
 					this.setState({ lives: currentLifePoints, snake: new Snake(Object.assign([], defaultSnakeElements)), direction: 1 });
@@ -238,8 +242,25 @@ export default class App extends Component {
 		return lis;
 	}
 
+	onNameChange = e => {
+		this.setState({name: e.target.value});
+	}
+
+	saveHighscore = () => {
+		if (!this.state.name) return;
+		// lets send it to backend
+		const updates = {};
+
+		updates[this.state.name] = this.state.lastHighScore;
+		firebase.database().ref().update(updates).then(() => {
+			this.getHighScores();
+		});
+
+		this.setState({name: '', lastHighScore: 0, gameOver: false});
+	}
+
 	render() {
-		const { snake, apple, status, highScores } = this.state;
+		const { snake, apple, status, highScores, gameOver, name } = this.state;
 
 		return (
 			<div className="wrapper-game">
@@ -262,6 +283,16 @@ export default class App extends Component {
 								{this.renderHighscores(highScores)}
 							</ul>
 						</div>
+						{gameOver ? 
+						<div>
+							<span>Game over!</span>
+							<br/>
+							<span>Enter your name:</span>
+							<br/>
+							<input type="text" onInput={this.onNameChange} value={name}/>
+							<button onClick={this.saveHighscore}>Save</button>
+						</div>
+						: null}
 					</div>
 				</div>
 			</div>

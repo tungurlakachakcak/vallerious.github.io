@@ -8,6 +8,10 @@
 * Life buy
 * Snake growth
 
+### Technologies used
+
+* Preact
+* Firebase
 
 ### Future features (wow, that's a mouthful...)
 
