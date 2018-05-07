@@ -21,9 +21,9 @@ export default class Highscores extends Component {
     const {highScores} = this.props;
     return (
       <div>
-        <ul>
+        <ol>
           {this.renderHighscores(highScores)}
-        </ul>
+        </ol>
       </div>
     );
   }

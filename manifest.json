@@ -1,6 +1,6 @@
 {
-  "name": "tethrist",
-  "short_name": "tethrist",
+  "name": "Snake Game By Valeri (R)",
+  "short_name": "Snake Game",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
