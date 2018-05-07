@@ -3,12 +3,14 @@
   "name": "tethrist",
   "version": "0.0.0",
   "license": "MIT",
+  "homepage" : "http://vallerious.github.io/snake-cv",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
     "build": "preact build",
     "serve": "preact build && preact serve",
     "dev": "preact watch",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
