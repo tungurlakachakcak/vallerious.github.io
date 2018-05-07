@@ -29,10 +29,10 @@ export default class Board extends Component {
 				const pointExistsInSnake = points.some(p => p.x === colIdx && p.y === rowIdx); // O(n3) :/ 
 				const appleStyles = apple.x === colIdx && apple.y === rowIdx ? styles.apple : {};
 
-				row.push(<td style={pointExistsInSnake ? styles.snake : appleStyles} />);
+				row.push(<td key={colIdx} style={pointExistsInSnake ? styles.snake : appleStyles} />);
 			}
 
-			rows.push(<tr>{row}</tr>);
+			rows.push(<tr key={rowIdx}>{row}</tr>);
 		}
 
 		return rows;

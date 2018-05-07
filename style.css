@@ -34,6 +34,10 @@ td {
 	flex: 1;
 }
 
+.col-2 {
+	flex: 2;
+}
+
 .text-right {
 	text-align: right;
 }
