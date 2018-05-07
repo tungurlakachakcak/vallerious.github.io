@@ -1724,24 +1724,18 @@ var getRandomInt = function getRandomInt(min, max) {
 var index_int = void 0;
 
 var index__ref2 = Object(preact_min["h"])(
-	'h1',
-	{ className: 'text-center mb-5' },
-	'Snake'
-);
-
-var index__ref3 = Object(preact_min["h"])(
 	'strong',
 	{ className: 'label' },
 	'Score:'
 );
 
-var index__ref4 = Object(preact_min["h"])(
+var index__ref3 = Object(preact_min["h"])(
 	'strong',
 	{ className: 'label' },
 	'Lives:'
 );
 
-var index__ref5 = Object(preact_min["h"])(
+var index__ref4 = Object(preact_min["h"])(
 	'div',
 	{ 'class': 'float-right' },
 	Object(preact_min["h"])(
@@ -1756,9 +1750,9 @@ var index__ref5 = Object(preact_min["h"])(
 	)
 );
 
-var index__ref6 = Object(preact_min["h"])('div', { className: 'clearfix mb-4' });
+var index__ref5 = Object(preact_min["h"])('div', { className: 'clearfix mb-4' });
 
-var index__ref7 = Object(preact_min["h"])(
+var index__ref6 = Object(preact_min["h"])(
 	'div',
 	null,
 	Object(preact_min["h"])(
@@ -1768,7 +1762,7 @@ var index__ref7 = Object(preact_min["h"])(
 	)
 );
 
-var index__ref8 = Object(preact_min["h"])(
+var index__ref7 = Object(preact_min["h"])(
 	'div',
 	{ className: 'mb-3' },
 	Object(preact_min["h"])(
@@ -1778,7 +1772,7 @@ var index__ref8 = Object(preact_min["h"])(
 	)
 );
 
-var index__ref9 = Object(preact_min["h"])(Summary_Summary, null);
+var index__ref8 = Object(preact_min["h"])(Summary_Summary, null);
 
 var index_App = function (_Component) {
 	index__inherits(App, _Component);
@@ -1806,7 +1800,7 @@ var index_App = function (_Component) {
 		_this.getHighScores = function () {
 			firebaseSetup.database().ref('/').once('value').then(function (snapshop) {
 				var hiscores = snapshop.val();
-				var bestScoresArray = Object.keys(hiscores).map(function (k) {
+				var bestScoresArray = Object.keys(hiscores || {}).map(function (k) {
 					return { name: k, score: hiscores[k] };
 				});
 				bestScoresArray.sort(function (a, v) {
@@ -1993,24 +1987,23 @@ var index_App = function (_Component) {
 			currentPage === 'snake' ? Object(preact_min["h"])(
 				'div',
 				null,
-				index__ref2,
 				Object(preact_min["h"])(
 					'div',
-					{ className: 'row mr-0 ml-0' },
+					{ className: 'row mr-0 ml-0 pt-3' },
 					Object(preact_min["h"])(
 						'div',
 						{ className: 'col-4 p-10 text-right' },
 						Object(preact_min["h"])(
 							'div',
 							null,
-							index__ref3,
+							index__ref2,
 							' ',
 							this.state.score
 						),
 						Object(preact_min["h"])(
 							'div',
 							null,
-							index__ref4,
+							index__ref3,
 							' ',
 							this.state.lives
 						)
@@ -2027,15 +2020,15 @@ var index_App = function (_Component) {
 					Object(preact_min["h"])(
 						'div',
 						{ className: 'col-3' },
+						index__ref4,
 						index__ref5,
 						index__ref6,
 						index__ref7,
-						index__ref8,
 						Object(preact_min["h"])(Highscores_Highscores, { highScores: highScores }),
 						gameOver ? Object(preact_min["h"])(HighscoreForm_HighscoreForm, { saveHighscore: this.saveHighscore }) : null
 					)
 				)
-			) : index__ref9
+			) : index__ref8
 		);
 	};
 

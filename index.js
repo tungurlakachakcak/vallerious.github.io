@@ -53,7 +53,7 @@ export default class App extends Component {
 		firebase.database().ref('/').once('value')
 			.then(snapshop => {
 				const hiscores = snapshop.val();
-				const bestScoresArray = Object.keys(hiscores).map(k => {
+				const bestScoresArray = Object.keys(hiscores || {}).map(k => {
 					return { name: k, score: hiscores[k] };
 				});
 				bestScoresArray.sort((a, v) => v.score - a.score);
@@ -195,8 +195,7 @@ export default class App extends Component {
 				</header>
 				{currentPage === 'snake' ?
 					<div>
-						<h1 className="text-center mb-5">Snake</h1>
-						<div className="row mr-0 ml-0">
+						<div className="row mr-0 ml-0 pt-3">
 							<div className="col-4 p-10 text-right">
 								<div><strong className="label">Score:</strong> {this.state.score}</div>
 								<div><strong className="label">Lives:</strong> {this.state.lives}</div>
