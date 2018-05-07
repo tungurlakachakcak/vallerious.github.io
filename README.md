@@ -12,8 +12,3 @@
 
 * Preact
 * Firebase
-
-### Future features (wow, that's a mouthful...)
-
-* Keeping highscores in a db
-* The actual resume of my work and stuff about me...
