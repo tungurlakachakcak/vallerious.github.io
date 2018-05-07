@@ -1,10 +1,10 @@
+@import './node_modules/bootstrap-css-only/css/bootstrap.min';
+
 html, body {
 	font: 14px/1.21 'Helvetica Neue', arial, sans-serif;
 	font-weight: 400;
-}
-
-h1 {
-	text-align: center;
+	padding: 0;
+	margin: 0;
 }
 
 table {
@@ -12,37 +12,16 @@ table {
 }
 
 td {
-	width: 10px;
-	height: 10px;
+	width: 15px;
+	height: 15px;
 	border: 1px solid black;
 	background: black;
-}
-
-.vertical-spacer-20 {
-	margin-top: 10px;
-	margin-bottom: 10px;
 }
 
 .label {
 	font-size: 1.2em;
 }
 
-.row {
-	display: flex;
-}
-
-.col-1 {
-	flex: 1;
-}
-
-.col-2 {
-	flex: 2;
-}
-
-.text-right {
-	text-align: right;
-}
-
-.p-10 {
-	padding: 10px;
+.my-pic {
+	width: 190px;
 }

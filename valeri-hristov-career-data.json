@@ -1,0 +1,87 @@
+{
+  "name": "Valeri Hristov",
+  "location": "Sofia, Bulgaria",
+  "phone": "+359878115789",
+  "email": "valericfbg@gmail.com",
+  "picture": "",
+  "position": "Software Developer",
+  "knowledgeAreas": [{
+    "name": "Web Development",
+    "level": 8
+  }, {
+    "name": "Algorithms & Data Structures",
+    "level": 6
+  }, {
+    "name": "Databases",
+    "level": 7
+  }, {
+    "name": "OOP",
+    "level": 6
+  }],
+  "technologies": [{
+    "name": "Javascript/NodeJS",
+    "level": 8
+  }, {
+    "name": "MongoDB",
+    "level": 7
+  }, {
+    "name": "PostgreSQL",
+    "level": 6
+  }, {
+    "name": "Java",
+    "level": 6,
+    "status": "learning at the moment..."
+  }, {
+    "name": "Bash scripting",
+    "level": 3
+  }],
+  "usedFrameworks": [
+    "ReactJS",
+    "Angular",
+    "node-organic",
+    "Preact",
+    "AngularJS",
+    "AdonisJS",
+    "Lodash",
+    "Bootstrap",
+    "Mocha",
+    "Jasmine",
+    "RxJS"
+  ],
+  "devEnvironments": ["Linux", "Windows", "MacOS"],
+  "education": [{
+    "name": "Bachelors degree in Economics",
+    "duration": "2009 - 2013",
+    "img": "assets/vins.jpg"
+  }, {
+    "name": "Software University",
+    "duration": "6 months until I got a job",
+    "img": "assets/softuni-2.0.jpg"
+  }, {
+    "name": "Self taught + online/onsite courses occasionally",
+    "duration": "2013 - end of life",
+    "img": "assets/me.jpg"
+  }],
+  "workExperience": [{
+    "company": "SoftServe",
+    "duration": "2016 - until now",
+    "position": "Frontend Developer",
+    "summary": "Currently I am working on a big healthcare project that will be started from scratch. My job is to create reusable components that will be used across angular modules and to setup the initial architecture of the frontend, choose UI libraries. My previous project at the company was on the frontend for a client which specializes in security analitycs. My job was to create reusable components and I was really proud of my work because my components were used by other developers and I was given credit for that.",
+    "technologies": ["ReactJS", "AngularJS", "Angular", "Bootstrap"]
+  }, {
+    "company": "Camplight",
+    "duration": "2017-2018",
+    "position": "Fullstack developer (remote)",
+    "summary": "Camplight is an organization with flat structure (bossless). We had a guy that finds the clients, but all other management/development, even sometimes, design work was done by any one of us. I was communicating directly with the client, organizing the sprints and developing the backend and frontend. It was a great experience - I loved the 'no bullshit' flow of work, things were happening faster and the way I wanted them. I learned to use TDD and to thoroughly test my UI before I commit. It was fun working on the remote server via ssh and interact directly with the DB. I worked both in SoftServe and in Camplight for some period of time, then I went 3 months fulltime at Camplight. I worked on two apps here, Volontime - a social network for people doing charity and social work, and Mama-App - mobile application for pregnant women.",
+    "technologies": ["NodeJS", "Angular", "ReactNative", "PostgreSQL", "MongoDB", "Nginx", "Mocha", "Bootstrap"],
+    "projects": ["Volontime", "Mama App"]
+  }, {
+    "company": "Software Group",
+    "duration": "2014-2016",
+    "position": "Fullstack Developer",
+    "summary": "Started here as an intern and quickly started taking on more responsibilities. I liked that my senior colleagues were exposing me to databases, backend and frontend problems and I got an idea how the whole thing glues together. We were developing banking solutions for third world countries.",
+    "technologies": ["NodeJS", "SQL Server", "AngularJS", "Bootstrap"]
+  }],
+  "summary": "Well..I am an enthusiastic fellow, driven by my goals and curiosity. Programming is something that I can do every day, without feeling daunted. I enjoy the complex problems and focusing on the details in the code, in the architecture and performance. My desire to learn it all has pushed me to expore different technologies and dimensions of programming. Currently I am learning Java in my spare time, focusing on OOP and Algorithms and Data Structures. I am a beginner at this, but I regularly attend online coding competitions and enrolled in an Algorithms course. I feel that I have a firm grasp on the frontend technologies and that it is time to expand my horisons.",
+  "aboutMyPersonality": "Besides that I have a few hobbies which are on the sideline from quite some time because I am focusing on programming. I do running or strength training at least 3 times a week, I play guitar and I read books, mostly fiction."
+}

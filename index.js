@@ -6,6 +6,7 @@ import Point from './models/Point';
 import firebase from './firebaseSetup';
 import Highscores from './cmpts/Highscores';
 import HighscoreForm from './cmpts/HighscoreForm';
+import Summary from './cmpts/Summary';
 
 const rows = 30;
 const cols = 20;
@@ -28,7 +29,8 @@ export default class App extends Component {
 			highScores: [],
 			gameOver: false,
 			name: '',
-			lastHighScore: 0
+			lastHighScore: 0,
+			currentPage: 'cv'
 		};
 	}
 
@@ -177,29 +179,41 @@ export default class App extends Component {
 		this.setState({ lastHighScore: 0, gameOver: false });
 	}
 
+	togglePage = e => {
+		e.preventDefault();
+
+		this.setState({ currentPage: this.state.currentPage === 'snake' ? 'cv' : 'snake' });
+	}
+
 	render() {
-		const { snake, apple, status, highScores, gameOver } = this.state;
+		const { snake, apple, status, highScores, gameOver, currentPage } = this.state;
 
 		return (
 			<div className="wrapper-game">
-				<h1>Snake</h1>
-				<div className="row">
-					<div className="col-1 p-10 text-right">
-						<div><strong className="label">Score:</strong> {this.state.score}</div>
-						<div><strong className="label">Lives:</strong> {this.state.lives}</div>
-					</div>
-					<div className="col-1">
-						<div>
-							<Board rows={rows} cols={cols} snake={snake} apple={apple} />
+				{currentPage === 'snake' ?
+				<div>
+					<h1 className="text-center mb-5">Snake</h1>
+					<div className="row mr-0 ml-0">
+						<div className="col-4 p-10 text-right">
+							<div><strong className="label">Score:</strong> {this.state.score}</div>
+							<div><strong className="label">Lives:</strong> {this.state.lives}</div>
+						</div>
+						<div className="col-4">
+							<div>
+								<Board rows={rows} cols={cols} snake={snake} apple={apple} />
+							</div>
+						</div>
+						<div className="col-3">
+							<div><em>*Press enter to start/pause game.</em></div>
+							<div className="mb-3"><em>*Press space to exchange 1000 points for 1 life.</em></div>
+							<Highscores highScores={highScores} />
+							{gameOver ? <HighscoreForm saveHighscore={this.saveHighscore} /> : null}
 						</div>
 					</div>
-					<div className="col-1">
-						<div><em>*Press enter to start/pause game.</em></div>
-						<div><em>*Press space to exchange 1000 points for 1 life.</em></div>
-						<Highscores highScores={highScores} />
-						{gameOver ? <HighscoreForm saveHighscore={this.saveHighscore} /> : null}
-					</div>
-				</div>
+				</div> : <Summary />}
+				{/* <footer>
+					<a href="#" onClick={this.togglePage}>About Me</a>
+				</footer> */}
 			</div>
 		);
 	}
