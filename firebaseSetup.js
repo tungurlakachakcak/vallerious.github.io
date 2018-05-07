@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 
+// do not use this to do any harm... :(
 var config = {
 	apiKey: "AIzaSyA6K9x7ji3pTmYR6sReIzSm8gkr_3lbZUs",
 	authDomain: "snake-cv.firebaseapp.com",

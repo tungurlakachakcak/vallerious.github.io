@@ -32,3 +32,21 @@ header {
 	top: 20px;
 	left: 20px;
 }
+
+.snake-link-icon {
+	display: inline-block;
+	background: center no-repeat;
+	background-size: contain;
+}
+
+.snake-link-icon.in {
+	background-image: url('assets/in.png');
+	width: 50px;
+	height: 50px;
+}
+
+.snake-link-icon.git {
+	background-image: url('assets/git.png');
+	width: 40px;
+	height: 40px;
+}

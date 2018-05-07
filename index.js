@@ -194,26 +194,35 @@ export default class App extends Component {
 					<a href="#" onClick={this.togglePage}>{currentPage === 'snake' ? 'About Me' : 'Snake Game'}</a>
 				</header>
 				{currentPage === 'snake' ?
-				<div>
-					<h1 className="text-center mb-5">Snake</h1>
-					<div className="row mr-0 ml-0">
-						<div className="col-4 p-10 text-right">
-							<div><strong className="label">Score:</strong> {this.state.score}</div>
-							<div><strong className="label">Lives:</strong> {this.state.lives}</div>
-						</div>
-						<div className="col-4">
-							<div>
-								<Board rows={rows} cols={cols} snake={snake} apple={apple} />
+					<div>
+						<h1 className="text-center mb-5">Snake</h1>
+						<div className="row mr-0 ml-0">
+							<div className="col-4 p-10 text-right">
+								<div><strong className="label">Score:</strong> {this.state.score}</div>
+								<div><strong className="label">Lives:</strong> {this.state.lives}</div>
+							</div>
+							<div className="col-4">
+								<div>
+									<Board rows={rows} cols={cols} snake={snake} apple={apple} />
+								</div>
+							</div>
+							<div className="col-3">
+								<div class="float-right">
+									<a href="https://github.com/Vallerious" target="_blank">
+										<div className="snake-link-icon git mr-3"></div>
+									</a>
+									<a href="https://www.linkedin.com/in/valeri-hristov-57988311a/" target="_blank">
+										<div className="snake-link-icon in"></div>
+									</a>
+								</div>
+								<div className="clearfix mb-4"></div>
+								<div><em>*Press enter to start/pause game.</em></div>
+								<div className="mb-3"><em>*Press space to exchange 1000 points for 1 life.</em></div>
+								<Highscores highScores={highScores} />
+								{gameOver ? <HighscoreForm saveHighscore={this.saveHighscore} /> : null}
 							</div>
 						</div>
-						<div className="col-3">
-							<div><em>*Press enter to start/pause game.</em></div>
-							<div className="mb-3"><em>*Press space to exchange 1000 points for 1 life.</em></div>
-							<Highscores highScores={highScores} />
-							{gameOver ? <HighscoreForm saveHighscore={this.saveHighscore} /> : null}
-						</div>
-					</div>
-				</div> : <Summary />}
+					</div> : <Summary />}
 			</div>
 		);
 	}
