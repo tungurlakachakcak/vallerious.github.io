@@ -196,16 +196,16 @@ export default class App extends Component {
 				{currentPage === 'snake' ?
 					<div>
 						<div className="row mr-0 ml-0 pt-3">
-							<div className="col-4 p-10 text-right">
+							<div className="col-lg-4 col-md-2 p-10 text-right hidden-lg-down">
 								<div><strong className="label">Score:</strong> {this.state.score}</div>
 								<div><strong className="label">Lives:</strong> {this.state.lives}</div>
 							</div>
-							<div className="col-4">
+							<div className="col-12 col-md-4">
 								<div>
 									<Board rows={rows} cols={cols} snake={snake} apple={apple} />
 								</div>
 							</div>
-							<div className="col-3">
+							<div className="col-12 col-md-4">
 								<div class="float-right">
 									<a href="https://github.com/Vallerious" target="_blank">
 										<div className="snake-link-icon git mr-3"></div>

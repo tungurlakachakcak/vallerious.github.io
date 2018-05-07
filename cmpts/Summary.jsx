@@ -9,12 +9,12 @@ export default class Summary extends Component {
 
   render() {
     return (
-      <div className="container pb-5">
+      <div className="container pb-5 pt-4">
         <div className="row p-4">
-          <div className="col-3">
+          <div className="col-12 col-md-3">
             <img src="./assets/me.jpg" className="img-fluid img-thumbnail my-pic" />
           </div>
-          <div className="col-9">
+          <div className="col-12 col-md-9">
             <ul class="list-group">
               <li class="list-group-item">{data.name}</li>
               <li class="list-group-item">{data.position}</li>
@@ -76,7 +76,7 @@ export default class Summary extends Component {
           <h4>Education</h4>
           <div className="row">
             {data.education.map(e => {
-              return <div className="card col-3 mr-3">
+              return <div className="card col-12 col-md-3 mr-3">
                 <img class="card-img-top" src={e.img} alt="Card image cap" />
                 <div class="card-body">
                   <h5 class="card-title">{e.name}</h5>
@@ -90,7 +90,7 @@ export default class Summary extends Component {
           <h4>Work Experience</h4>
           <div className="row">
             {data.workExperience.map(w => {
-              return <div className="card col-8 mb-3">
+              return <div className="card col-12 col-md-8 mb-3">
                 <div class="card-body">
                   <h5 class="card-title"><strong>{w.position}</strong></h5>
                   <p class="card-text">{w.duration}</p>

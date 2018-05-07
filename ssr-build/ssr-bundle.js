@@ -1388,7 +1388,7 @@ function Summary__inherits(subClass, superClass) { if (typeof superClass !== "fu
 
 var Summary__ref = Object(preact_min["h"])(
   'div',
-  { className: 'col-3' },
+  { className: 'col-12 col-md-3' },
   Object(preact_min["h"])('img', { src: './assets/me.jpg', className: 'img-fluid img-thumbnail my-pic' })
 );
 
@@ -1458,14 +1458,14 @@ var Summary_Summary = function (_Component) {
   Summary.prototype.render = function render() {
     return Object(preact_min["h"])(
       'div',
-      { className: 'container pb-5' },
+      { className: 'container pb-5 pt-4' },
       Object(preact_min["h"])(
         'div',
         { className: 'row p-4' },
         Summary__ref,
         Object(preact_min["h"])(
           'div',
-          { className: 'col-9' },
+          { className: 'col-12 col-md-9' },
           Object(preact_min["h"])(
             'ul',
             { 'class': 'list-group' },
@@ -1607,7 +1607,7 @@ var Summary_Summary = function (_Component) {
           valeri_hristov_career_data_default.a.education.map(function (e) {
             return Object(preact_min["h"])(
               'div',
-              { className: 'card col-3 mr-3' },
+              { className: 'card col-12 col-md-3 mr-3' },
               Object(preact_min["h"])('img', { 'class': 'card-img-top', src: e.img, alt: 'Card image cap' }),
               Object(preact_min["h"])(
                 'div',
@@ -1637,7 +1637,7 @@ var Summary_Summary = function (_Component) {
           valeri_hristov_career_data_default.a.workExperience.map(function (w) {
             return Object(preact_min["h"])(
               'div',
-              { className: 'card col-8 mb-3' },
+              { className: 'card col-12 col-md-8 mb-3' },
               Object(preact_min["h"])(
                 'div',
                 { 'class': 'card-body' },
@@ -1992,7 +1992,7 @@ var index_App = function (_Component) {
 					{ className: 'row mr-0 ml-0 pt-3' },
 					Object(preact_min["h"])(
 						'div',
-						{ className: 'col-4 p-10 text-right' },
+						{ className: 'col-lg-4 col-md-2 p-10 text-right hidden-lg-down' },
 						Object(preact_min["h"])(
 							'div',
 							null,
@@ -2010,7 +2010,7 @@ var index_App = function (_Component) {
 					),
 					Object(preact_min["h"])(
 						'div',
-						{ className: 'col-4' },
+						{ className: 'col-12 col-md-4' },
 						Object(preact_min["h"])(
 							'div',
 							null,
@@ -2019,7 +2019,7 @@ var index_App = function (_Component) {
 					),
 					Object(preact_min["h"])(
 						'div',
-						{ className: 'col-3' },
+						{ className: 'col-12 col-md-4' },
 						index__ref4,
 						index__ref5,
 						index__ref6,
