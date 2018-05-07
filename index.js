@@ -117,14 +117,14 @@ export default class App extends Component {
 	}
 
 	getHighScores = () => {
-		firebase.database().ref('/').limitToLast(10).once('value')
+		firebase.database().ref('/').once('value')
 			.then(snapshop => {
 				const hiscores = snapshop.val();
 				const bestScoresArray = Object.keys(hiscores).map(k => {
 					return {name: k, score: hiscores[k]};
 				});
 				bestScoresArray.sort((a, v) => v.score - a.score);
-				this.setState({highScores: bestScoresArray});
+				this.setState({highScores: bestScoresArray.slice(0, 10)});
 			});
 	}
 
