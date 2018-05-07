@@ -104,6 +104,9 @@ export default class Summary extends Component {
             })}
           </div>
         </div>
+        <p class="lead mt-5 text-center pb-5">
+            Thank you for reviewing my work, if you would like to work together, please contact me! :)
+          </p>
       </div>
     )
   }
